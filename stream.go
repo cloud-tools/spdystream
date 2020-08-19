@@ -190,9 +190,9 @@ func (s *Stream) resetStream() error {
 	return s.conn.framer.WriteFrame(resetFrame)
 }
 
-func (s *Stream) resetStreamErr() error {
+func (s *Stream) resetStreamIdleTimeout() error {
 	s.dataLock.Lock()
-	s.dataChan <- []byte("Timeout reset occurred")
+	s.dataChan <- []byte("{\"status\": \"Failure\", \"message\": \"Idle timeout happened\"}")
 	s.dataLock.Unlock()
 
 	return s.resetStream()

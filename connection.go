@@ -85,7 +85,7 @@ Loop:
 			i.conn.streamCond.L.Unlock()
 			go func() {
 				for _, stream := range streams {
-					stream.resetStreamErr()
+					stream.resetStreamIdleTimeout()
 				}
 				i.conn.Close()
 			}()
