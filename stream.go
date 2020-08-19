@@ -192,7 +192,7 @@ func (s *Stream) resetStream() error {
 
 func (s *Stream) resetStreamIdleTimeout() error {
 	s.dataLock.Lock()
-	s.dataChan <- []byte("{\"status\": \"Failure\", \"message\": \"Idle timeout happened\"}")
+	s.dataChan <- []byte("{\"status\": \"Failure\", \"message\": \"Stream idle timeout error\"}")
 	s.dataLock.Unlock()
 
 	return s.resetStream()
