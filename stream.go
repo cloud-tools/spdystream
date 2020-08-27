@@ -190,6 +190,14 @@ func (s *Stream) resetStream() error {
 	return s.conn.framer.WriteFrame(resetFrame)
 }
 
+func (s *Stream) resetStreamIdleTimeout() error {
+	s.dataLock.Lock()
+	s.dataChan <- []byte("{\"status\": \"Failure\", \"message\": \"Stream idle timeout error\"}")
+	s.dataLock.Unlock()
+
+	return s.resetStream()
+}
+
 // CreateSubStream creates a stream using the current as the parent
 func (s *Stream) CreateSubStream(headers http.Header, fin bool) (*Stream, error) {
 	return s.conn.CreateStream(headers, s, fin)
